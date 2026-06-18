@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { UserPlus, Users } from 'lucide-react';
+import { UserPlus, Users, SlidersHorizontal } from 'lucide-react';
 import { useEnsembles } from '../hooks/useEnsembles';
 import { useStudents } from '../hooks/useStudents';
 import { StudentForm } from './StudentForm';
+import { EnsembleManager } from './EnsembleManager';
+import { ensembleColor } from '../utils';
 import { seedRoster, seedStudents, seedEnsembles } from '../seedData';
 import type { Student } from '../types';
 
@@ -11,6 +13,7 @@ export function RosterView() {
   const { students, loading: studentsLoading, addStudent, updateStudent, deleteStudent } = useStudents();
   const [editingStudent, setEditingStudent] = useState<Student | null | 'new'>(null);
   const [search, setSearch] = useState('');
+  const [managingEnsembles, setManagingEnsembles] = useState(false);
   const [importState, setImportState] = useState<'idle' | 'importing' | 'error'>('idle');
   const [importError, setImportError] = useState('');
 
@@ -43,21 +46,25 @@ export function RosterView() {
 
   return (
     <div>
-      {students.length > 0 && (
-        <div className="dir-filter-bar">
+      <div className="dir-filter-bar">
+        {students.length > 0 && (
           <input
             className="dir-input"
             placeholder="Search students…"
             value={search}
             onChange={e => setSearch(e.target.value)}
           />
-        </div>
-      )}
+        )}
+        <button className="dir-tool-btn" onClick={() => setManagingEnsembles(true)}>
+          <SlidersHorizontal size={15} /> Ensembles
+        </button>
+      </div>
 
       {grouped.map(({ ensemble, students: grp }) =>
         grp.length === 0 ? null : (
           <div key={ensemble.id} className="dir-roster-group">
             <div className="dir-roster-group-header">
+              <span className="dir-roster-swatch" style={{ background: ensembleColor(ensemble) }} />
               {ensemble.name}
               <span className="dir-roster-count">{grp.length}</span>
             </div>
@@ -134,6 +141,8 @@ export function RosterView() {
           onClose={() => setEditingStudent(null)}
         />
       )}
+
+      {managingEnsembles && <EnsembleManager onClose={() => setManagingEnsembles(false)} />}
     </div>
   );
 }

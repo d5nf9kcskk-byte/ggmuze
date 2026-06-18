@@ -2,6 +2,11 @@ export interface Ensemble {
   id: string;
   name: string;
   order: number;
+  color?: string;            // hex used for calendar chips; falls back to a palette by order
+  defaultLocation?: string;
+  defaultStartTime?: string; // "HH:MM" (24h)
+  defaultEndTime?: string;
+  meetingDays?: number[];    // 0=Sun … 6=Sat — informational recurring pattern
 }
 
 export interface Student {
@@ -12,8 +17,31 @@ export interface Student {
   section?: string;
   grade?: string;
   status: 'Active' | 'Inactive' | 'Graduated';
+  // Contact info moves to the auth-only `contacts` collection in Phase 4.
   email?: string;
   parentEmail?: string;
+}
+
+export type EventType = 'Rehearsal' | 'Concert' | 'Sectional' | 'Event';
+export type EventStatus = 'Scheduled' | 'Completed' | 'Cancelled';
+
+/**
+ * Unified calendar item — rehearsals, concerts, sectionals, and other events
+ * all share one shape so they render on a single calendar. A concert can span
+ * several ensembles, so ensembleIds is an array.
+ */
+export interface CalendarEvent {
+  id: string;
+  type: EventType;
+  ensembleIds: string[];
+  date: string;           // YYYY-MM-DD
+  startTime?: string;     // "HH:MM" (24h)
+  endTime?: string;       // "HH:MM" (24h)
+  location?: string;
+  title?: string;         // primarily for concerts / one-off events
+  repertoire?: string;
+  status: EventStatus;
+  notes?: string;
 }
 
 export interface AttendanceRecord {
@@ -26,15 +54,6 @@ export interface AttendanceRecord {
   notes?: string;
 }
 
-export interface Rehearsal {
-  id: string;
-  ensembleId: string;
-  date: string; // YYYY-MM-DD
-  status: 'Scheduled' | 'Completed' | 'Cancelled';
-  notes?: string;
-  repertoire?: string;
-}
-
 export interface ProgressNote {
   id: string;
   studentId: string;
@@ -44,4 +63,4 @@ export interface ProgressNote {
 }
 
 export type AttendanceStatus = 'Absent' | 'Late' | 'Excused';
-export type Tab = 'roll' | 'roster' | 'rehearsals' | 'notes';
+export type Tab = 'roll' | 'roster' | 'schedule' | 'notes';
