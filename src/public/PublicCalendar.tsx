@@ -5,6 +5,7 @@ import { useEnsembles } from '../director/hooks/useEnsembles';
 import { useEvents } from '../director/hooks/useEvents';
 import { todayStr, toDateStr, parseDate, ensembleColor } from '../director/utils';
 import { PubEventCard } from './components/PubEventCard';
+import { SubscribeButton } from './components/SubscribeButton';
 import type { CalendarEvent } from '../director/types';
 
 const WEEKDAYS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
@@ -111,6 +112,10 @@ export function PublicCalendar() {
             <PubEventCard key={e.id} event={e} ensembleMap={ensembleMap} showNotes />
           ))
         )}
+      </div>
+
+      <div className="pub-subscribe-section">
+        <SubscribeButton ensembleId={filterEnsembleId || undefined} />
       </div>
     </div>
   );

@@ -1381,3 +1381,38 @@ html, body, #root { margin: 0; padding: 0; height: 100%; }
 
 .dir-check-row:last-child { border-bottom: none; }
 .dir-check-row input { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* ── Day-of-week picker (rehearsal generator) ── */
+
+.dir-day-row { display: flex; gap: 6px; }
+
+.dir-day-btn {
+  flex: 1; height: 40px; border-radius: 10px;
+  border: 1.5px solid var(--dir-border); background: #fff;
+  font-size: 13px; font-weight: 700; color: var(--dir-ink, #18212f);
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+
+.dir-day-btn.active {
+  background: var(--dir-primary);
+  border-color: var(--dir-primary);
+  color: #fff;
+}
+
+/* ── Generate preview ── */
+
+.dir-gen-preview {
+  background: #f0f9f4; border: 1px solid #bbf7d0;
+  border-radius: 10px; padding: 12px 14px; margin-top: 8px;
+}
+
+.dir-gen-preview-count { font-size: 13.5px; font-weight: 700; color: #166534; margin-bottom: 8px; }
+
+.dir-gen-preview-dates { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.dir-gen-preview-date {
+  font-size: 12px; font-weight: 600; color: #166534;
+  background: #dcfce7; border-radius: 7px; padding: 3px 9px;
+}
+
+.dir-gen-preview-date.dir-muted { color: #64748b; background: #f1f5f9; }

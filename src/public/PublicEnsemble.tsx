@@ -10,6 +10,7 @@ import { todayStr, formatTimeRange, ensembleColor } from '../director/utils';
 import { PubEventCard } from './components/PubEventCard';
 import { PubAnnouncements } from './components/PubAnnouncements';
 import { PubRepertoire } from './components/PubRepertoire';
+import { SubscribeButton } from './components/SubscribeButton';
 
 export function PublicEnsemble() {
   const { id = '' } = useParams();
@@ -76,6 +77,7 @@ export function PublicEnsemble() {
         <h2 className="pub-section-title">Schedule</h2>
         <Link to={`/calendar?ensemble=${ensemble.id}`} className="pub-section-link"><CalendarDays size={13} /> Full calendar</Link>
       </div>
+      <SubscribeButton ensembleId={ensemble.id} label={`Subscribe · ${ensemble.name}`} />
       {upcoming.length === 0 ? (
         <div className="pub-muted">No upcoming events.</div>
       ) : (
