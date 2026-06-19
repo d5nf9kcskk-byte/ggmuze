@@ -1324,3 +1324,60 @@ html, body, #root { margin: 0; padding: 0; height: 100%; }
   padding: 8px 11px;
   margin-top: 4px;
 }
+
+/* ── Announcements / repertoire managers ── */
+
+.dir-empty-inline {
+  font-size: 13px;
+  color: var(--dir-muted, #6b7280);
+  padding: 14px 4px;
+  text-align: center;
+}
+
+.dir-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 44px;
+  padding: 0 14px;
+  border: 1.5px solid var(--dir-border);
+  border-radius: var(--dir-radius-sm);
+  background: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dir-ink, #18212f);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  width: 100%;
+  justify-content: center;
+}
+
+.dir-toggle.on {
+  background: var(--dir-primary);
+  border-color: var(--dir-primary);
+  color: #fff;
+}
+
+.dir-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid var(--dir-border);
+  border-radius: var(--dir-radius-sm);
+  padding: 4px 10px;
+}
+
+.dir-check-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 2px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--dir-border);
+  cursor: pointer;
+}
+
+.dir-check-row:last-child { border-bottom: none; }
+.dir-check-row input { width: 18px; height: 18px; flex-shrink: 0; }

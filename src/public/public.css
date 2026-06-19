@@ -333,3 +333,80 @@
 }
 
 .pub-nav-btn.active { color: var(--pub-accent); }
+
+/* ═══════════════════════════════════════════
+   Announcements, repertoire, links (phase 5)
+═══════════════════════════════════════════ */
+
+/* Section title with a trailing action link */
+.pub-section-row { display: flex; align-items: baseline; justify-content: space-between; }
+.pub-section-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12.5px; font-weight: 600; color: var(--pub-accent); text-decoration: none;
+}
+
+/* Inline ensemble links */
+.pub-ens-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  color: var(--pub-accent); text-decoration: none; font-weight: 600;
+}
+.pub-ev-ens-link { color: inherit; text-decoration: none; }
+.pub-ev-ens-link:active { opacity: 0.6; }
+.pub-ens-tag-link { color: #fff; text-decoration: none; }
+
+.pub-tag-row-sm { margin-top: 8px; gap: 5px; }
+.pub-tag-row-sm .pub-ens-tag { font-size: 11px; padding: 2px 8px; }
+
+/* Rehearsal note line on event cards */
+.pub-event-note {
+  display: flex; align-items: flex-start; gap: 5px;
+  margin-top: 7px; font-size: 13px; color: var(--pub-ink);
+  background: var(--pub-accent-soft); border-radius: 8px; padding: 7px 9px;
+}
+.pub-event-note svg { flex-shrink: 0; margin-top: 2px; opacity: 0.7; }
+
+/* Announcements */
+.pub-announce {
+  background: var(--pub-surface);
+  border: 1px solid var(--pub-border);
+  border-left: 4px solid var(--pub-accent);
+  border-radius: var(--pub-radius);
+  padding: 13px 15px;
+  margin-bottom: 10px;
+}
+.pub-announce.pinned { border-left-color: #ca8a04; background: #fffdf5; }
+.pub-announce-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pub-announce-pin { color: #ca8a04; flex-shrink: 0; }
+.pub-announce-title { font-size: 15.5px; font-weight: 700; }
+.pub-announce-tag {
+  font-size: 10.5px; font-weight: 700; color: #fff;
+  padding: 2px 8px; border-radius: 8px; text-decoration: none;
+}
+.pub-announce-tag-all { background: var(--pub-muted); }
+.pub-announce-body { font-size: 14px; color: var(--pub-ink); margin-top: 6px; white-space: pre-wrap; line-height: 1.45; }
+.pub-announce-date { font-size: 11.5px; color: var(--pub-muted); margin-top: 8px; }
+
+/* Repertoire */
+.pub-rep-list { padding: 4px 16px; }
+.pub-rep-row {
+  display: flex; align-items: flex-start; gap: 11px;
+  padding: 13px 0; border-bottom: 1px solid var(--pub-border);
+}
+.pub-rep-row:last-child { border-bottom: none; }
+.pub-rep-icon { color: var(--pub-accent); flex-shrink: 0; margin-top: 2px; }
+.pub-rep-body { flex: 1; min-width: 0; }
+.pub-rep-title { font-size: 15px; font-weight: 700; }
+.pub-rep-by { font-size: 13px; color: var(--pub-muted); margin-top: 1px; }
+.pub-rep-notes { font-size: 13px; color: var(--pub-ink); margin-top: 5px; }
+.pub-rep-events { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.pub-rep-event-tag {
+  font-size: 11.5px; font-weight: 600; color: var(--pub-accent);
+  background: var(--pub-accent-soft); padding: 3px 9px; border-radius: 8px; text-decoration: none;
+}
+.pub-rep-parts {
+  display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0;
+  font-size: 12.5px; font-weight: 700; color: var(--pub-accent);
+  border: 1px solid var(--pub-border); border-radius: 9px; padding: 6px 10px; text-decoration: none;
+  align-self: center;
+}
+.pub-rep-parts:active { background: var(--pub-accent-soft); }
