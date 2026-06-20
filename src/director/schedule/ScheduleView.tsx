@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { ChevronLeft, ChevronRight, CalendarPlus, MapPin, Clock, Users, Upload } from 'lucide-react';
+import { ChevronLeft, ChevronRight, CalendarPlus, MapPin, Clock, Users, Upload, Sparkles } from 'lucide-react';
 import { useEnsembles } from '../hooks/useEnsembles';
 import { useEvents } from '../hooks/useEvents';
 import { useStudents } from '../hooks/useStudents';
@@ -9,6 +9,7 @@ import { resolveRoster, overrideSummary } from '../rosterResolver';
 import { EventForm } from './EventForm';
 import { EventRoster } from './EventRoster';
 import { IcsImport } from './IcsImport';
+import { seedCalendar } from '../seedCalendar';
 import {
   todayStr, toDateStr, parseDate, formatTimeRange, ensembleColor, EVENT_TYPE_ICON,
 } from '../utils';
@@ -33,6 +34,20 @@ export function ScheduleView() {
   const [editing, setEditing] = useState<CalendarEvent | null | 'new'>(null);
   const [rosterEvent, setRosterEvent] = useState<CalendarEvent | null>(null);
   const [importingIcs, setImportingIcs] = useState(false);
+  const [seedState, setSeedState] = useState<'idle' | 'seeding' | 'done' | 'error'>('idle');
+  const [seedError, setSeedError] = useState('');
+
+  async function handleSeed() {
+    setSeedState('seeding');
+    setSeedError('');
+    try {
+      await seedCalendar();
+      setSeedState('done');
+    } catch (e) {
+      setSeedError(e instanceof Error ? e.message : String(e));
+      setSeedState('error');
+    }
+  }
 
   const ensembleMap = useMemo(() => Object.fromEntries(ensembles.map(e => [e.id, e])), [ensembles]);
   const eventsById = useMemo(() => Object.fromEntries(events.map(e => [e.id, e])), [events]);
@@ -109,9 +124,26 @@ export function ScheduleView() {
         <button className="dir-date-nav-btn" onClick={() => shiftMonth(1)} aria-label="Next month">
           <ChevronRight size={18} />
         </button>
-        <button className="dir-tool-btn" style={{ marginLeft: 'auto' }} onClick={() => setImportingIcs(true)} title="Import ICS calendar">
-          <Upload size={15} /> Import
-        </button>
+        <div style={{ display: 'flex', gap: 6, marginLeft: 'auto' }}>
+          {events.length === 0 && seedState !== 'done' && (
+            <button
+              className="dir-tool-btn"
+              onClick={handleSeed}
+              disabled={seedState === 'seeding'}
+              title="Pre-load 2026-27 NWSA rehearsal schedule + MDCPS/MDC calendar"
+            >
+              <Sparkles size={15} /> {seedState === 'seeding' ? 'Seeding…' : 'Seed 2026-27'}
+            </button>
+          )}
+          {seedState === 'error' && (
+            <span style={{ fontSize: 12, color: 'var(--dir-danger)', alignSelf: 'center' }}>
+              {seedError}
+            </span>
+          )}
+          <button className="dir-tool-btn" onClick={() => setImportingIcs(true)} title="Import ICS calendar">
+            <Upload size={15} /> Import
+          </button>
+        </div>
       </div>
 
       {/* Ensemble filter */}
