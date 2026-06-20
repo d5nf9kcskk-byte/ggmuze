@@ -29,9 +29,17 @@ export function PubEventCard({
   const ensembleObjs = ids.map(id => ensembleMap[id]).filter(Boolean) as Ensemble[];
   const barColor = e.type === 'Concert' ? '#ca8a04' : ensembleColor(ensembleObjs[0]);
 
-  const pieces = piecesById
-    ? (e.pieceIds ?? []).map(id => piecesById[id]).filter(Boolean) as RepertoirePiece[]
-    : [];
+  // Pieces linked to this event from either direction: the event's pieceIds
+  // (in program order) plus any piece that names this event in its eventIds.
+  const pieces: RepertoirePiece[] = (() => {
+    if (!piecesById) return [];
+    const ordered = (e.pieceIds ?? []).map(id => piecesById[id]).filter(Boolean) as RepertoirePiece[];
+    const seen = new Set(ordered.map(p => p.id));
+    const extra = Object.values(piecesById).filter(
+      p => !seen.has(p.id) && (p.eventIds ?? []).includes(e.id),
+    );
+    return [...ordered, ...extra];
+  })();
 
   return (
     <div className={`pub-event ${e.status === 'Cancelled' ? 'cancelled' : ''}`}>

@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Search, Plus, Check } from 'lucide-react';
+import { Search, Plus, Check, ChevronUp, ChevronDown, X } from 'lucide-react';
 import { useRepertoire } from '../hooks/useRepertoire';
 import type { Ensemble } from '../types';
 
@@ -7,6 +7,7 @@ interface Props {
   /** Filter piece suggestions to these ensembles; empty array = show all. */
   ensembleIds: string[];
   ensembles: Ensemble[];
+  /** Selected piece IDs, in program order. */
   value: string[];
   onChange: (ids: string[]) => void;
 }
@@ -23,6 +24,10 @@ export function PiecePicker({ ensembleIds, ensembles, value, onChange }: Props) 
     () => Object.fromEntries(ensembles.map(e => [e.id, e])),
     [ensembles],
   );
+  const piecesById = useMemo(
+    () => Object.fromEntries(pieces.map(p => [p.id, p])),
+    [pieces],
+  );
 
   const pool = ensembleIds.length
     ? pieces.filter(p => ensembleIds.includes(p.ensembleId))
@@ -35,8 +40,19 @@ export function PiecePicker({ ensembleIds, ensembles, value, onChange }: Props) 
       )
     : pool;
 
+  // Selected pieces resolved in program order (skip any that were deleted).
+  const selected = value.map(id => piecesById[id]).filter(Boolean);
+
   function toggle(id: string) {
     onChange(value.includes(id) ? value.filter(x => x !== id) : [...value, id]);
+  }
+
+  function move(i: number, dir: -1 | 1) {
+    const j = i + dir;
+    if (j < 0 || j >= value.length) return;
+    const next = [...value];
+    [next[i], next[j]] = [next[j], next[i]];
+    onChange(next);
   }
 
   async function handleQuickAdd() {
@@ -60,12 +76,62 @@ export function PiecePicker({ ensembleIds, ensembles, value, onChange }: Props) 
 
   return (
     <div className="dir-piece-picker">
+      {/* Selected pieces, in program order */}
+      {selected.length > 0 && (
+        <div className="dir-piece-selected">
+          <div className="dir-piece-selected-head">
+            {selected.length > 1 ? 'Program order' : 'Selected'}
+            <span className="dir-piece-selected-count">{selected.length}</span>
+          </div>
+          {selected.map((p, i) => (
+            <div key={p.id} className="dir-piece-sel-row">
+              <span className="dir-piece-sel-num">{i + 1}</span>
+              <span className="dir-piece-sel-info">
+                <span className="dir-piece-title">{p.title}</span>
+                {p.composer && <span className="dir-piece-composer">{p.composer}</span>}
+              </span>
+              {selected.length > 1 && (
+                <span className="dir-piece-sel-moves">
+                  <button
+                    type="button"
+                    className="dir-piece-move"
+                    onClick={() => move(i, -1)}
+                    disabled={i === 0}
+                    aria-label="Move up"
+                  >
+                    <ChevronUp size={15} />
+                  </button>
+                  <button
+                    type="button"
+                    className="dir-piece-move"
+                    onClick={() => move(i, 1)}
+                    disabled={i === selected.length - 1}
+                    aria-label="Move down"
+                  >
+                    <ChevronDown size={15} />
+                  </button>
+                </span>
+              )}
+              <button
+                type="button"
+                className="dir-piece-remove"
+                onClick={() => toggle(p.id)}
+                aria-label="Remove"
+              >
+                <X size={15} />
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Search + quick add */}
       <div className="dir-piece-search-row">
         <div className="dir-piece-search">
           <Search size={13} className="dir-piece-search-icon" />
           <input
             className="dir-piece-search-input"
-            placeholder="Search pieces…"
+            placeholder="Search pieces to add…"
             value={search}
             onChange={e => setSearch(e.target.value)}
           />

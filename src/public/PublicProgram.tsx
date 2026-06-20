@@ -22,10 +22,12 @@ export function PublicProgram() {
 
   const programPieces = useMemo(() => {
     if (!event) return [];
-    // Prefer the structured pieceIds order; fall back to pieces that name this event.
-    const fromIds = (event.pieceIds ?? []).map(pid => piecesById[pid]).filter(Boolean);
-    if (fromIds.length) return fromIds;
-    return pieces.filter(p => (p.eventIds ?? []).includes(event.id));
+    // Structured pieceIds define the program order; append any piece that only
+    // names this event from its own side (linked via the repertoire editor).
+    const ordered = (event.pieceIds ?? []).map(pid => piecesById[pid]).filter(Boolean);
+    const seen = new Set(ordered.map(p => p!.id));
+    const extra = pieces.filter(p => !seen.has(p.id) && (p.eventIds ?? []).includes(event.id));
+    return [...ordered, ...extra];
   }, [event, piecesById, pieces]);
 
   const ensembleNames = useMemo(

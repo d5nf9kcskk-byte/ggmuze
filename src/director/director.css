@@ -1564,3 +1564,52 @@ html, body, #root { margin: 0; padding: 0; height: 100%; }
   border-radius: 8px; padding: 5px 10px; margin-top: 4px;
 }
 .dir-event-program-btn:active { background: #fef3c7; }
+
+/* ── Piece picker: selected / program-order list ── */
+
+.dir-piece-selected {
+  border-bottom: 1px solid var(--dir-border);
+  background: #f0f6ff;
+}
+
+.dir-piece-selected-head {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.6px; text-transform: uppercase;
+  color: var(--dir-blue); padding: 8px 10px 4px;
+}
+.dir-piece-selected-count {
+  font-size: 10px; font-weight: 800; color: #fff; background: var(--dir-blue);
+  border-radius: 9px; min-width: 17px; height: 17px; padding: 0 5px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+
+.dir-piece-sel-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 10px; border-top: 1px solid #dbeafe;
+}
+
+.dir-piece-sel-num {
+  flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--dir-blue); color: #fff; font-size: 11px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.dir-piece-sel-info { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+.dir-piece-sel-moves { display: flex; flex-direction: column; gap: 1px; flex-shrink: 0; }
+.dir-piece-move {
+  width: 26px; height: 18px; display: flex; align-items: center; justify-content: center;
+  background: #fff; border: 1px solid var(--dir-border); color: var(--dir-blue);
+  cursor: pointer; -webkit-tap-highlight-color: transparent; padding: 0;
+}
+.dir-piece-move:first-child { border-radius: 6px 6px 0 0; }
+.dir-piece-move:last-child { border-radius: 0 0 6px 6px; border-top: none; }
+.dir-piece-move:disabled { color: var(--dir-border); cursor: default; }
+.dir-piece-move:not(:disabled):active { background: var(--dir-surface-2); }
+
+.dir-piece-remove {
+  width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+  background: none; border: none; color: var(--dir-text-muted); cursor: pointer;
+  border-radius: 7px; flex-shrink: 0; -webkit-tap-highlight-color: transparent;
+}
+.dir-piece-remove:active { background: var(--dir-absent-bg); color: var(--dir-absent); }
