@@ -21,9 +21,10 @@ export function useRepertoire() {
     }, () => setLoading(false));
   }, []);
 
-  async function addPiece(data: Omit<RepertoirePiece, 'id'>) {
+  async function addPiece(data: Omit<RepertoirePiece, 'id'>): Promise<string | undefined> {
     if (!db) return;
-    await addDoc(collection(db, 'repertoire'), data);
+    const ref = await addDoc(collection(db, 'repertoire'), data);
+    return ref.id;
   }
 
   async function updatePiece(id: string, data: Partial<Omit<RepertoirePiece, 'id'>>) {

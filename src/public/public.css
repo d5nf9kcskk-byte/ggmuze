@@ -455,3 +455,126 @@
 .pub-subscribe-hint {
   font-size: 12px; color: var(--pub-muted); line-height: 1.4;
 }
+
+/* ── Piece detail page ── */
+
+.pub-piece-hero {
+  background: var(--pub-surface); border: 1px solid var(--pub-border);
+  border-left: 4px solid var(--pub-accent); border-radius: var(--pub-radius);
+  padding: 20px 18px; margin-bottom: 14px;
+}
+
+.pub-piece-icon { color: var(--pub-accent); margin-bottom: 6px; }
+.pub-piece-full-title { font-size: 13px; color: var(--pub-muted); margin-top: 2px; font-style: italic; }
+
+.pub-piece-byline { margin-top: 6px; }
+.pub-piece-dates { color: var(--pub-muted); font-size: 0.9em; }
+
+.pub-piece-meta-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.pub-piece-chip {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 12px; font-weight: 600; color: var(--pub-accent);
+  background: var(--pub-accent-soft); border-radius: 7px; padding: 3px 9px;
+}
+
+.pub-piece-section { margin-bottom: 12px; }
+.pub-piece-section-title {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.6px; text-transform: uppercase;
+  color: var(--pub-muted); margin-bottom: 8px;
+}
+
+.pub-piece-body { font-size: 14.5px; line-height: 1.55; color: var(--pub-text); margin: 0; }
+
+.pub-piece-movements {
+  margin: 0; padding: 0 0 0 18px; list-style: decimal;
+}
+.pub-piece-movement {
+  padding: 5px 0; font-size: 14px; display: flex; align-items: center;
+  justify-content: space-between; border-bottom: 1px solid var(--pub-border);
+}
+.pub-piece-movement:last-child { border-bottom: none; }
+.pub-piece-mvt-title { color: var(--pub-text); }
+.pub-piece-mvt-dur { font-size: 12px; color: var(--pub-muted); font-weight: 600; }
+
+.pub-piece-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 13.5px; font-weight: 700; color: var(--pub-accent); text-decoration: none;
+  margin-top: 6px;
+}
+.pub-piece-link:active { opacity: 0.75; }
+
+.pub-piece-parts-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+.pub-piece-part-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 13px; font-weight: 600; color: var(--pub-accent); text-decoration: none;
+  background: var(--pub-accent-soft); border-radius: 8px; padding: 5px 11px;
+}
+.pub-piece-part-link:active { background: #dce7f7; }
+
+.pub-piece-media-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.pub-piece-media-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 700; color: var(--pub-accent); text-decoration: none;
+  border: 1px solid var(--pub-border); border-radius: 10px; padding: 8px 14px;
+}
+.pub-piece-media-btn:active { background: var(--pub-accent-soft); }
+
+.pub-piece-event { padding: 6px 0; border-bottom: 1px solid var(--pub-border); }
+.pub-piece-event:last-child { border-bottom: none; }
+.pub-piece-event-link { font-size: 14px; color: var(--pub-accent); text-decoration: none; font-weight: 600; }
+
+/* ── Repertoire: updated chips and parts ── */
+
+.pub-rep-chips { display: flex; flex-wrap: wrap; gap: 5px; margin: 3px 0; }
+.pub-rep-chip {
+  display: inline-flex; align-items: center; gap: 2px;
+  font-size: 11px; font-weight: 600; color: var(--pub-muted);
+  background: var(--pub-bg); border: 1px solid var(--pub-border); border-radius: 6px; padding: 2px 7px;
+}
+
+.pub-rep-dates { font-size: 0.9em; color: var(--pub-muted); }
+.pub-rep-mypart {
+  display: inline-flex; align-items: center; gap: 4px; margin-top: 4px;
+  font-size: 13px; font-weight: 700; color: var(--pub-accent); text-decoration: none;
+  background: var(--pub-accent-soft); border-radius: 8px; padding: 4px 10px;
+}
+.pub-rep-mypart:active { background: #dce7f7; }
+
+.pub-rep-actions {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0;
+}
+.pub-rep-details {
+  font-size: 12px; font-weight: 700; color: var(--pub-muted); text-decoration: none;
+  border: 1px solid var(--pub-border); border-radius: 8px; padding: 4px 9px;
+}
+.pub-rep-details:active { background: var(--pub-accent-soft); color: var(--pub-accent); }
+
+/* Repertoire title as link */
+.pub-rep-title {
+  font-size: 15px; font-weight: 700; color: var(--pub-text); text-decoration: none;
+}
+.pub-rep-title:hover { color: var(--pub-accent); }
+
+/* ── Student schedule: Your parts ── */
+
+.pub-mypart-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid var(--pub-border);
+}
+.pub-mypart-row:last-child { border-bottom: none; }
+
+.pub-mypart-info { flex: 1; min-width: 0; }
+.pub-mypart-title {
+  display: block; font-size: 14px; font-weight: 700; color: var(--pub-text);
+  text-decoration: none; margin-bottom: 2px;
+}
+.pub-mypart-title:hover { color: var(--pub-accent); }
+.pub-mypart-events { font-size: 12px; color: var(--pub-muted); }
+
+.pub-mypart-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 13px; font-weight: 700; color: var(--pub-accent); text-decoration: none;
+  background: var(--pub-accent-soft); border-radius: 9px; padding: 7px 12px;
+  flex-shrink: 0;
+}
+.pub-mypart-btn:active { background: #dce7f7; }

@@ -48,7 +48,8 @@ export interface CalendarEvent {
   endTime?: string;       // "HH:MM" (24h)
   location?: string;
   title?: string;         // primarily for concerts / one-off events
-  repertoire?: string;
+  repertoire?: string;    // free-text repertoire/focus notes
+  pieceIds?: string[];    // linked RepertoirePiece IDs
   status: EventStatus;
   notes?: string;
 }
@@ -107,6 +108,16 @@ export interface Announcement {
   expiresOn?: string;        // YYYY-MM-DD; hidden on/after this date if set
 }
 
+export interface PieceMovement {
+  title: string;
+  duration?: number; // minutes
+}
+
+export interface PiecePartLink {
+  instrument: string; // e.g. "Violin I", "Trumpet in B♭"
+  url: string;
+}
+
 /**
  * A piece of repertoire for an ensemble. Optionally links to sheet-music /
  * parts (a Drive folder, PDF, etc.) and to the concert(s)/event(s) it's
@@ -115,13 +126,28 @@ export interface Announcement {
 export interface RepertoirePiece {
   id: string;
   ensembleId: string;
-  title: string;
+  title: string;              // short working title for labels and lists
+  fullTitle?: string;         // formal title e.g. "Symphony No. 5 in C minor, Op. 67"
   composer?: string;
+  composerDates?: string;     // e.g. "1770–1827"
   arranger?: string;
-  notes?: string;
-  partsUrl?: string;     // link to parts / sheet music
-  eventIds?: string[];   // concerts/events this piece is programmed for
+  catalogNumber?: string;     // e.g. "Op. 67", "BWV 1068", "K. 550"
+  year?: string;              // composition year or range e.g. "1804–1808"
+  instrumentation?: string;   // brief forces description
+  duration?: number;          // typical performance duration in minutes
+  movements?: PieceMovement[];
+  programNotes?: string;      // text suitable for a concert program
+  programNotesUrl?: string;   // link to external program notes
+  imslpUrl?: string;          // IMSLP score/parts page
+  videoUrl?: string;          // YouTube or other notable recording
+  audioUrl?: string;          // streaming audio link
+  partsLinks?: PiecePartLink[]; // per-instrument downloadable parts
+  partsSharedUrl?: string;    // shared folder / IMSLP all-parts link
+  partsUrl?: string;          // legacy single-link field (backward compat)
+  notes?: string;             // director notes (edition, cuts, etc.)
+  eventIds?: string[];        // concerts/events this piece is programmed for
   order: number;
+  aiStatus?: 'pending' | 'enriched' | null;
 }
 
 export type AttendanceStatus = 'Absent' | 'Late' | 'Excused';

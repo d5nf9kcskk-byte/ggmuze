@@ -11,6 +11,7 @@ import { PublicEnsembles } from './public/PublicEnsembles';
 import { PublicEnsemble } from './public/PublicEnsemble';
 import { PublicLookup } from './public/PublicLookup';
 import { PublicSchedule } from './public/PublicSchedule';
+import { PublicPiece } from './public/PublicPiece';
 import DirectorApp from './director/DirectorApp';
 
 const router = createBrowserRouter(
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
         { path: 'ensemble/:id', element: <PublicEnsemble /> },
         { path: 'lookup', element: <PublicLookup /> },
         { path: 'student/:id', element: <PublicSchedule /> },
+        { path: 'piece/:id', element: <PublicPiece /> },
       ],
     },
     {
