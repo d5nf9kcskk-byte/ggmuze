@@ -1643,10 +1643,10 @@ html, body, #root { margin: 0; padding: 0; height: 100%; }
 .dir-detail-contact-row {
   display: flex; align-items: center; gap: 8px; font-size: 13.5px;
   color: var(--dir-blue); text-decoration: none; font-weight: 500;
-  padding: 6px 8px; border-radius: 8px; background: #eff6ff;
+  padding: 6px 8px; border-radius: 8px; background: #f7eef8;
   -webkit-tap-highlight-color: transparent;
 }
-.dir-detail-contact-row:active { background: #dbeafe; }
+.dir-detail-contact-row:active { background: #e8d0eb; }
 .dir-detail-contact-row svg { flex-shrink: 0; color: var(--dir-blue); }
 .dir-detail-contact-row span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .dir-detail-ext { opacity: 0.5; flex-shrink: 0; }
@@ -1726,7 +1726,7 @@ html, body, #root { margin: 0; padding: 0; height: 100%; }
 }
 .dir-detail-note-date { font-size: 12px; color: var(--dir-text-muted); font-weight: 600; }
 .dir-detail-note-cat  {
-  font-size: 11px; background: #eff6ff; color: var(--dir-blue);
+  font-size: 11px; background: #f7eef8; color: var(--dir-blue);
   padding: 1px 7px; border-radius: 7px; font-weight: 700;
 }
 .dir-detail-note-content { font-size: 13.5px; color: var(--dir-text); line-height: 1.45; }
