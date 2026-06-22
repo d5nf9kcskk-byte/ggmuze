@@ -167,8 +167,10 @@ html, body, #root { margin: 0; padding: 0; height: 100%; }
 }
 
 .dir-auth-logo {
-  font-size: 48px;
-  margin-bottom: 8px;
+  width: 110px;
+  height: auto;
+  margin-bottom: 12px;
+  border-radius: 4px;
 }
 
 .dir-auth h1 {
