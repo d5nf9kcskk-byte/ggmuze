@@ -69,8 +69,11 @@ export function ScheduleView() {
   const eventsById = useMemo(() => Object.fromEntries(events.map(e => [e.id, e])), [events]);
   const piecesById = useMemo(() => Object.fromEntries(pieces.map(p => [p.id, p])), [pieces]);
 
+  // School-wide events (ensembleIds: []) are always visible regardless of filter.
   const visibleEvents = useMemo(
-    () => (filterEnsembleId ? events.filter(e => e.ensembleIds.includes(filterEnsembleId)) : events),
+    () => (filterEnsembleId
+      ? events.filter(e => e.ensembleIds.length === 0 || e.ensembleIds.includes(filterEnsembleId))
+      : events),
     [events, filterEnsembleId],
   );
 
@@ -148,6 +151,17 @@ export function ScheduleView() {
 
   function EventCard({ e }: { e: CalendarEvent }) {
     const summary = overrideSummary(overrides, e.id);
+    const isSchoolWide = e.ensembleIds.length === 0;
+
+    if (isSchoolWide) {
+      return (
+        <div className="dir-school-note" onClick={() => setEditing(e)}>
+          <span className="dir-school-note-icon">🏫</span>
+          <span className="dir-school-note-title">{eventLabel(e)}</span>
+        </div>
+      );
+    }
+
     return (
       <div className={`dir-event-card ${e.status === 'Cancelled' ? 'cancelled' : ''}`}>
         <span className="dir-event-bar" style={{ background: eventColor(e) }} />

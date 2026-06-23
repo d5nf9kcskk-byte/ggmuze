@@ -721,6 +721,23 @@ html, body, #root { margin: 0; padding: 0; height: 100%; }
 .dir-event-card:active { background: var(--dir-bg); }
 .dir-event-card.cancelled { opacity: 0.55; }
 
+/* School-wide calendar note (no ensemble — day-off / milestone markers) */
+.dir-school-note {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 13px;
+  margin-bottom: 8px;
+  background: #fdfaf2;
+  border: 1.5px solid #e8d98a;
+  border-radius: var(--dir-radius);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.dir-school-note:active { background: #f9f3d6; }
+.dir-school-note-icon { font-size: 16px; flex-shrink: 0; }
+.dir-school-note-title { font-size: 14px; font-weight: 600; color: var(--dir-gold-text); }
+
 .dir-event-bar { width: 5px; flex-shrink: 0; }
 
 .dir-event-body { padding: 11px 13px; flex: 1; min-width: 0; }
